@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>大尺寸广告图展示</title>
+  </head>
+  <body>
+    <div id="ad1" style="width:400px;height:400px;overflow:hidden">
+      <!-- 添加canvas标签，并加上红色边框以便于在页面上查看 -->
+        <canvas id="myCanvas1" style="border: 1px solid red;width:400px;height:400px;position: absolute;left:10px;top:10px;">
+        您的浏览器不支持canvas标签。
+        </canvas>
+    </div>
+    <div id="ad2" style="width:500px;height:700px;overflow:hidden">
+        <canvas id="myCanvas2" style="border: 1px solid red;width:500px;height:600px;position: absolute;left:420px;top:10px;">
+        您的浏览器不支持canvas标签。
+        </canvas>    
+    </div>
+    <script type="text/javascript">
+        function drawLargeImage($container, imageSrc, x, y, _X, _Y) {
+        //获取Canvas对象(画布)
+        if($container.id == "ad1"){
+            $container = document.getElementById("myCanvas1");
+            if($container.getContext){  
+                //获取对应的CanvasRenderingContext2D对象(画笔)
+                var ctx = $container.getContext("2d");
+                //创建新的图片对象
+                var img = new Image();
+                // console.log(img)
+                //指定图片的URL
+                img.src = imageSrc;
+                //浏览器加载图片完毕后再绘制图片
+                img.onload = function(){
+                    ctx.drawImage(img, x, y, _X, _Y);           
+                };
+            }
+        }else if($container.id == "ad2"){
+            $container = document.getElementById("myCanvas2");
+            if($container.getContext){  
+                //获取对应的CanvasRenderingContext2D对象(画笔)
+                var ctx = $container.getContext("2d");                
+                //创建新的图片对象
+                var img = new Image();
+                //指定图片的URL
+                img.src = imageSrc;
+                //浏览器加载图片完毕后再绘制图片
+                img.onload = function(){
+                    ctx.drawImage(img, x, y, _X, _Y);           
+                };
+            }
+        }
+      }
+      //以Canvas画布上的坐标(10,10)为起始点，绘制图像
+      drawLargeImage(document.getElementById('ad1'), 'https://gw.alicdn.com/tfs/TB163pKdMmTBuNjy1XbXXaMrVXa-400-400.jpg',10, 10, 200, 100);
+      drawLargeImage(document.getElementById('ad2'), 'https://gw.alicdn.com/tfs/TB1EaOddKuSBuNjy1XcXXcYjFXa-500-700.jpg',10, 10, 270, 300);
+    </script>
+  </body>
+</html>
